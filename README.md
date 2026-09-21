@@ -5,6 +5,13 @@ AutoUploader - приложение для одновременной отпра
 
 Программа имеет очень понятный и простой интерфейс и поддержку русского, английского и китайского языков
 
+## Скриншоты / Screenshots
+
+<p align="center">
+  <img src="screenshots/main.png" alt="AutoUploader Main Window" width="49%" />
+  <img src="screenshots/settings.png" alt="AutoUploader Settings" width="49%" />
+</p>
+
 ## Запуск разработки
 
 Нужна Node.js 20 или новее.
