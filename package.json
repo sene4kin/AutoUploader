@@ -1,0 +1,37 @@
+{
+  "name": "autoupload",
+  "version": "0.1.0",
+  "description": "Cross-platform desktop publisher for YouTube, TikTok and Telegram",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "package:mac": "electron-builder --mac dmg",
+    "package:win": "electron-builder --win nsis",
+    "package:all": "electron-builder -mwl"
+  },
+  "build": {
+    "appId": "com.autoupload.publisher",
+    "productName": "AutoUpload",
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "allowScripts": {
+    "electron@38.8.6": true
+  }
+}

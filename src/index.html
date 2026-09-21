@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="app_title">AutoUpload</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand"><span class="brand-mark"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span><span>AutoUpload</span></div>
+        <div class="top-actions">
+          <span id="videoName" class="video-name" data-i18n="no_video_selected">Видео ещё не выбрано</span>
+          <div class="lang-picker" id="langPicker">
+            <button type="button" id="langButton" class="lang-button" data-i18n-title="change_lang_title" title="Сменить язык">
+              <span id="currentFlag" class="current-flag"></span>
+              <span class="lang-chevron">▾</span>
+            </button>
+            <div id="langMenu" class="lang-dropdown hidden">
+              <button type="button" class="lang-option" data-lang="ru">
+                <span class="flag-preview" id="flagPreviewRu"></span>
+                <span>Русский</span>
+              </button>
+              <button type="button" class="lang-option" data-lang="en">
+                <span class="flag-preview" id="flagPreviewEn"></span>
+                <span>English</span>
+              </button>
+              <button type="button" class="lang-option" data-lang="zh">
+                <span class="flag-preview" id="flagPreviewZh"></span>
+                <span>中文</span>
+              </button>
+            </div>
+          </div>
+          <button id="settingsButton" class="icon-button" data-i18n-title="settings_button_title" title="Настройки"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+        </div>
+      </header>
+      <section class="workspace">
+        <aside class="upload-card">
+          <div class="step-label" data-i18n="step1_badge">Шаг 1</div>
+          <h1 data-i18n="step1_heading">Загрузите ролик</h1>
+          <p data-i18n="step1_desc">Видео нужно для YouTube и TikTok. Для Telegram можно публиковать только текст.</p>
+          <button id="chooseVideo" class="file-drop"><span class="file-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg></span><strong data-i18n="choose_video_button">Выбрать видео</strong><small data-i18n="choose_video_optional">Необязательно для текстовой публикации в Telegram</small></button>
+          <div id="videoInfo" class="video-info hidden"></div>
+          <div class="tip"><span>i</span><p data-i18n="shorts_tip">Для Shorts используйте вертикальное видео до 3 минут. YouTube определит формат автоматически.</p></div>
+        </aside>
+        <section class="editor-area">
+          <div class="editor-heading"><div><div class="step-label" data-i18n="step2_badge">Шаг 2</div><h2 data-i18n="step2_heading">Настройте публикации</h2></div><p data-i18n="step2_desc">У каждой площадки — свой текст и приватность.</p></div>
+          <div class="platform-grid">
+            <article class="platform-card" data-platform="youtube">
+              <div class="card-title"><label class="toggle"><input type="checkbox" id="youtubeEnabled" checked><span></span></label><div class="platform-logo youtube"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div><div><h3>YouTube</h3><small data-i18n="youtube_subtitle">Обычное видео или Shorts</small></div></div>
+              <label><span data-i18n="title_label">Название</span><input id="youtubeTitle" maxlength="100" data-i18n-placeholder="title_placeholder" placeholder="Название видео"></label>
+              <label><span data-i18n="desc_label">Описание</span><textarea id="youtubeDescription" maxlength="5000" data-i18n-placeholder="youtube_desc_placeholder" placeholder="Текст под роликом"></textarea></label>
+              <div class="row"><label><span data-i18n="format_label">Формат</span><select id="youtubeFormat"><option value="short" data-i18n="youtube_format_short">Shorts — до 3 мин, вертикально</option><option value="video" data-i18n="youtube_format_video">Обычное видео</option></select></label><label><span data-i18n="privacy_label">Приватность</span><select id="youtubePrivacy"><option value="private" data-i18n="youtube_privacy_private">Приватное</option><option value="unlisted" data-i18n="youtube_privacy_unlisted">По ссылке</option><option value="public" data-i18n="youtube_privacy_public">Публичное</option></select></label></div>
+              <label class="tags-label"><span data-i18n="tags_label">Теги</span><input id="youtubeTags" data-i18n-placeholder="tags_placeholder" placeholder="тег, видео, канал"></label>
+              <p id="youtubeFormatHint" class="format-note">Для Shorts подготовьте вертикальный или квадратный ролик не длиннее 3 минут. YouTube присвоит формат автоматически.</p>
+              <div class="progress hidden" id="youtubeProgress"><div class="progress-track"><span></span></div><small></small></div>
+            </article>
+            <article class="platform-card" data-platform="tiktok">
+              <div class="card-title"><label class="toggle"><input type="checkbox" id="tiktokEnabled" checked><span></span></label><div class="platform-logo tiktok"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-2.89-2.89c.28 0 .54.04.79.1V9.4a6.34 6.34 0 1 0 5.55 6.27V8.69a8.18 8.18 0 0 0 4.77 1.52V6.76a4.85 4.85 0 0 1-1-.07z"/></svg></div><div><h3>TikTok</h3><small data-i18n="tiktok_subtitle">Видео в вашу ленту</small></div></div>
+              <label><span data-i18n="tiktok_desc_label">Подпись</span><textarea id="tiktokDescription" maxlength="2200" data-i18n-placeholder="tiktok_desc_placeholder" placeholder="Описание, хэштеги и упоминания"></textarea></label>
+              <label><span data-i18n="visibility_label">Видимость</span><select id="tiktokPrivacy"><option value="SELF_ONLY" data-i18n="tiktok_privacy_self">Только я</option><option value="MUTUAL_FOLLOW_FRIENDS" data-i18n="tiktok_privacy_friends">Друзья</option><option value="PUBLIC_TO_EVERYONE" data-i18n="tiktok_privacy_public">Все</option></select></label>
+              <p class="approval-note" data-i18n="tiktok_approval_note">TikTok требует одобренный Content Posting API для публикации без ручного подтверждения.</p>
+              <div class="progress hidden" id="tiktokProgress"><div class="progress-track"><span></span></div><small></small></div>
+            </article>
+            <article class="platform-card telegram-card" data-platform="telegram">
+              <div class="card-title"><label class="toggle"><input type="checkbox" id="telegramEnabled" checked><span></span></label><div class="platform-logo telegram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m20.665 3.717-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l.002.001-.314 4.692c.46 0 .663-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"/></svg></div><div><h3>Telegram</h3><small data-i18n="telegram_subtitle">Все каналы из настроек</small></div></div>
+              <label><span data-i18n="telegram_desc_label">Подпись</span><textarea id="telegramDescription" maxlength="1024" data-i18n-placeholder="telegram_desc_placeholder" placeholder="Текст для Telegram-каналов"></textarea></label>
+              <p class="channel-note" data-i18n="telegram_channel_note">Каналы задаются в настройках. Бот должен быть администратором каждого канала. Видео — не больше 50 МБ: это предел Bot API.</p>
+              <div class="progress hidden" id="telegramProgress"><div class="progress-track"><span></span></div><small></small></div>
+            </article>
+          </div>
+          <div class="publish-bar"><div id="statusText" data-i18n="default_status">Выберите ролик или подготовьте текстовую публикацию для Telegram</div><div class="publish-actions"><button id="cancelButton" class="cancel-button hidden" data-i18n="cancel_button">Отменить</button><button id="publishButton" class="publish-button"><span id="publishButtonText" data-i18n="publish_button">Опубликовать выбранное</span> <span>→</span></button></div></div>
+          <section id="results" class="results hidden" aria-live="polite"></section>
+        </section>
+      </section>
+    </main>
+    <dialog id="settingsDialog">
+      <form method="dialog" class="settings-form">
+        <div class="modal-heading"><div><span class="step-label" data-i18n="settings_badge">ПОДКЛЮЧЕНИЯ</span><h2 data-i18n="settings_heading">Настройки аккаунтов</h2></div><button class="close-button" value="cancel">×</button></div>
+        <p class="settings-intro" data-i18n="settings_intro">Ключи хранятся зашифрованно в системе. Подключённый аккаунт обновляет токен сам — вручную ничего вставлять не нужно.</p>
+
+        <section class="conn">
+          <div class="conn-head"><strong>YouTube</strong><span id="youtubeStatus" class="conn-status" data-i18n="status_not_connected">Не подключено</span></div>
+          <p class="conn-hint" data-i18n="youtube_hint">Создайте OAuth-клиент типа «Desktop app» в Google Cloud Console и разрешите в нём загрузку на YouTube.</p>
+          <label>Client ID<input id="youtubeClientId" placeholder="…apps.googleusercontent.com"></label>
+          <label>Client secret<input id="youtubeClientSecret" type="password" placeholder="GOCSPX-…"></label>
+          <div class="conn-actions">
+            <button type="button" id="youtubeConnect" class="secondary-button" data-i18n="connect_account">Подключить аккаунт</button>
+            <button type="button" id="youtubeDisconnect" class="secondary-button hidden" data-i18n="disconnect_account">Отключить</button>
+          </div>
+          <details><summary data-i18n="manual_token_summary">Вставить access token вручную</summary><label>Access token<input id="youtubeToken" type="password" placeholder="ya29…"></label><small data-i18n="youtube_manual_token_hint">Запасной вариант: такой токен живёт около часа и сам не обновляется.</small></details>
+        </section>
+
+        <section class="conn">
+          <div class="conn-head"><strong>TikTok</strong><span id="tiktokStatus" class="conn-status" data-i18n="status_not_connected">Не подключено</span></div>
+          <p class="conn-hint"><span data-i18n="tiktok_redirect_hint">В кабинете разработчика TikTok укажите redirect URI: </span><code id="tiktokRedirect"></code></p>
+          <label>Client key<input id="tiktokClientKey" placeholder="aw…"></label>
+          <label>Client secret<input id="tiktokClientSecret" type="password"></label>
+          <div class="conn-actions">
+            <button type="button" id="tiktokConnect" class="secondary-button" data-i18n="connect_account">Подключить аккаунт</button>
+            <button type="button" id="tiktokDisconnect" class="secondary-button hidden" data-i18n="disconnect_account">Отключить</button>
+          </div>
+          <details><summary data-i18n="manual_token_summary">Вставить access token вручную</summary><label>Access token<input id="tiktokToken" type="password" placeholder="act.…"></label><small data-i18n="tiktok_manual_token_hint">Запасной вариант на случай, если TikTok не принимает локальный redirect URI.</small></details>
+        </section>
+
+        <section class="conn">
+          <div class="conn-head"><strong>Telegram</strong></div>
+          <p class="conn-hint" data-i18n="telegram_hint">Токен бота не истекает, поэтому подключение здесь не нужно.</p>
+          <label><span data-i18n="telegram_bot_token_label">Токен бота</span><input id="telegramBotToken" type="password" placeholder="123456:ABC…"></label>
+          <label><span data-i18n="telegram_chats_label">Ваши каналы</span><textarea id="telegramChats" placeholder="@my_channel&#10;-1001234567890"></textarea><small data-i18n="telegram_chats_hint">По одному @username или ID на строку. Добавьте бота администратором.</small></label>
+        </section>
+
+        <p id="settingsError" class="settings-error hidden"></p>
+        <div class="modal-actions"><button value="cancel" class="secondary-button" data-i18n="modal_cancel">Отмена</button><button id="saveSettings" value="default" class="primary-button" data-i18n="modal_save">Сохранить</button></div>
+      </form>
+    </dialog>
+    <script src="i18n.js"></script>
+    <script src="renderer.js"></script>
+  </body>
+</html>
